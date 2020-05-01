@@ -11,7 +11,8 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native'
-
+import * as Haptics from "expo-haptics";
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 // Measure function triggers false positives
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -271,6 +272,7 @@ class SortableFlatList extends Component {
   }
 
   move = (hoverComponent, index) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     const { onMoveBegin } = this.props
     if (this._releaseAnim) {
       this._releaseAnim.stop()
@@ -385,6 +387,7 @@ class SortableFlatList extends Component {
           scrollEventThrottle={16}
         />
         {this.renderHoverComponent()}
+        <KeyboardSpacer/>
       </View>
     )
   }
